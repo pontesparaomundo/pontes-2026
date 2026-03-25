@@ -247,16 +247,16 @@
                         </iframe>
                     </div>
                 </div>
-
-                <!-- Radar de Prazos -->
-                <div class="glass-card p-6 flex flex-col h-80 md:h-96">
-                    <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">⏳</span> Radar de Prazos (Tarefas em Foco)</h3>
-                    <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper p-2 flex items-center justify-center">
-                       <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSIEnoiXwhrILv-Tp5_EaMraCnOCSM0WDV47tmFeeq90ilmPMTi9bN9-bc9SF0NGg/pubhtml?gid=720205678&amp;single=true&amp;widget=true&amp;headers=false">
-                       </iframe>
-                    </div>
-                </div>
-            </div>
+                
+               <!-- Radar de Prazos - Cards Dinâmicos -->
+<div class="glass-card p-6 flex flex-col h-auto md:h-auto">
+    <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">⏳</span> Radar de Prazos (Tarefas em Foco)</h3>
+    <div id="tarefas-container" class="space-y-3">
+        <div class="text-center text-gray-400 py-8">
+            <span class="text-sm">⏳ Carregando tarefas...</span>
+        </div>
+    </div>
+</div>
 
             <!-- Agenda -->
             <div class="glass-card p-6">
