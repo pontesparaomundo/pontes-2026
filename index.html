@@ -139,6 +139,126 @@
             color: #334155;
             line-height: 1.5;
         }
+        /* Card de Tarefas */
+.tarefa-card {
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 5px solid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.tarefa-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateX(2px);
+}
+
+.tarefa-card.urgente {
+    background: #FEE2E2;
+    border-left-color: #EF4444;
+}
+
+.tarefa-card.urgente .tarefa-status {
+    color: #991B1B;
+    background: #FCA5A5;
+}
+
+.tarefa-card.atencao {
+    background: #FEF3C7;
+    border-left-color: #F59E0B;
+}
+
+.tarefa-card.atencao .tarefa-status {
+    color: #92400E;
+    background: #FCD34D;
+}
+
+.tarefa-card.normal {
+    background: #E0F2FE;
+    border-left-color: #0284C7;
+}
+
+.tarefa-card.normal .tarefa-status {
+    color: #003F87;
+    background: #7DD3FC;
+}
+
+.tarefa-titulo {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #1F2937;
+}
+
+.tarefa-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.tarefa-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.tarefa-info-item {
+    color: #475569;
+}
+
+.tarefa-info-label {
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.tarefa-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tarefa-btn {
+    flex: 1;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tarefa-btn-primary {
+    background: #075985;
+    color: white;
+}
+
+.tarefa-btn-primary:hover {
+    background: #064e73;
+}
+
+.tarefa-btn-secondary {
+    background: #E5E7EB;
+    color: #375A7F;
+}
+
+.tarefa-btn-secondary:hover {
+    background: #D1D5DB;
+}
+
+.tarefas-vazio {
+    text-center;
+    color: #9CA3AF;
+    padding: 24px;
+    font-size: 14px;
+}
     </style>
 </head>
 <body class="flex h-screen overflow-hidden text-gray-800">
@@ -777,11 +897,105 @@
                 }
             });
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchTasksFromSheets();
-            fetchAvisosFromSheets();
+// Função para buscar e renderizar tarefas urgentes do Radar de Prazos
+async function fetchTarefasFromSheets() {
+    const spreadsheetId = '1Jb5yegqoojAUeSrZjireF0WiPsFfOimP';
+    const gid = '720205678'; // ID da aba "Radar de Prazos"
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=csv&gid=${gid}`;
+    
+    try {
+        const response = await fetch(csvUrl);
+        const csvText = await response.text();
+        
+        Papa.parse(csvText, {
+            header: false,
+            skipEmptyLines: true,
+            complete: function(results) {
+                renderTarefasCards(results.data);
+            },
+            error: function(error) {
+                console.log('Erro ao carregar tarefas:', error);
+                renderTarefasVazio();
+            }
         });
+    } catch (error) {
+        console.log('Erro ao buscar CSV de tarefas:', error);
+        renderTarefasVazio();
+    }
+}
+
+function renderTarefasCards(data) {
+    const container = document.getElementById('tarefas-container');
+    
+    if (!data || data.length < 2) {
+        renderTarefasVazio();
+        return;
+    }
+
+    let html = '';
+    
+    // Percorre cada linha (começando da linha 1, pulando cabeçalho)
+    for (let i = 1; i < data.length; i++) {
+        const row = data[i];
+        if (!row || row.length < 4) continue;
+        
+        const tarefa = (row[0] || '').toString().trim();
+        const responsavel = (row[1] || '').toString().trim();
+        const prazo = (row[2] || '').toString().trim();
+        const status = (row[3] || '').toString().trim().toUpperCase();
+        
+        if (!tarefa) continue;
+        
+        // Determina a classe CSS baseada no status
+        let cssClass = 'normal';
+        let icone = '🟢';
+        
+        if (status.includes('URGENTE')) {
+            cssClass = 'urgente';
+            icone = '🔴';
+        } else if (status.includes('ATENÇÃO') || status.includes('ATENCAO')) {
+            cssClass = 'atencao';
+            icone = '🟠';
+        }
+        
+        html += `
+            <div class="tarefa-card ${cssClass}">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="tarefa-titulo">${icone} ${tarefa}</span>
+                    <span class="tarefa-status">${status}</span>
+                </div>
+                <div class="tarefa-info">
+                    <div class="tarefa-info-item">
+                        <span class="tarefa-info-label">Responsável:</span><br>${responsavel || 'Não atribuído'}
+                    </div>
+                    <div class="tarefa-info-item">
+                        <span class="tarefa-info-label">Prazo:</span><br>${prazo || 'Sem prazo'}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    if (html) {
+        container.innerHTML = html;
+    } else {
+        renderTarefasVazio();
+    }
+}
+
+function renderTarefasVazio() {
+    const container = document.getElementById('tarefas-container');
+    container.innerHTML = `
+        <div class="tarefas-vazio">
+            📭 Nenhuma tarefa no momento
+        </div>
+    `;
+}
+    document.addEventListener('DOMContentLoaded', function() {
+    fetchTasksFromSheets();
+    fetchAvisosFromSheets();
+    fetchTarefasFromSheets(); // ← Adicione esta linha
+});
 
         function showPage(pageId, element) {
             document.querySelectorAll('.page-section').forEach(page => {
