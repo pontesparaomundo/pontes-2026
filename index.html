@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        // Function to load data from Google Sheets dynamically
+        function loadAvisos() {
+            // Google Sheets API call (example)
+            const sheetID = 'yourSheetID';
+            const range = 'Sheet1!A:B'; // Adjust according to your sheet range
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${range}?key=yourAPIkey`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const avisosTable = document.getElementById('avisos-table');
+                    data.values.forEach(row => {
+                        const tr = document.createElement('tr');
+                        const destinatarioTd = document.createElement('td');
+                        destinatarioTd.innerText = row[0]; // Destinatário
+                        const mensagemTd = document.createElement('td');
+                        mensagemTd.innerText = row[1]; // Mensagem
+                        tr.appendChild(destinatarioTd);
+                        tr.appendChild(mensagemTd);
+                        avisosTable.appendChild(tr);
+                    });
+                });
+        }
+    </script>
+</head>
+<body onload="loadAvisos()">
+    <h1>Dashboard</h1>
+    
+    <h2>Avisos</h2>
+    <table id="avisos-table">
+        <thead>
+            <tr>
+                <th>Destinatário</th>
+                <th>Mensagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here dynamically -->
+        </tbody>
+    </table>
+
+    <h2>Calendar</h2>
+    <!-- Google Calendar Embed Code -->
+    <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+    <h2>Task Management</h2>
+    <!-- Task Management Code Here -->
+</body>
+</html>
