@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinos (Colleges) - Pontes 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="flex h-screen overflow-hidden text-gray-800" data-active-page="destinos">
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden" onclick="toggleMenu()"></div>
+    <div id="sidebar-container" class="flex"></div>
+
+    <main class="flex-1 flex flex-col h-full overflow-y-auto no-scrollbar relative">
+        <header class="bg-white shadow-sm px-6 py-4 flex justify-between items-center z-10 sticky top-0">
+            <div class="flex items-center">
+                <button onclick="toggleMenu()" class="mr-4 md:hidden text-gray-600 hover:text-[#075985]" aria-label="Abrir menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <div>
+                    <h2 id="page-title" class="text-xl md:text-2xl font-semibold text-gray-800 tracking-tight">Destinos (Colleges)</h2>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-sm font-medium text-gray-600" id="current-date">Carregando...</p>
+            </div>
+        </header>
+
+        <!-- INICIO: AREA EDITAVEL DA PAGINA DESTINOS -->
+        <div id="page-destinos" class="page-section p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+            <h3 class="font-semibold text-gray-800 border-b pb-2 mb-4">Países e Colleges de Destino</h3>
+
+            <!-- DICA: para adicionar novo país, duplique um card abaixo e uma subpágina correspondente -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <button class="glass-card p-6 flex items-center text-left cursor-pointer hover:bg-gray-50 hover:shadow-md transition" onclick="showCountryPage('reino-unido', '🇬🇧 Reino Unido')">
+                    <div class="text-5xl mr-6 shadow-sm rounded">🇬🇧</div>
+                    <div><h4 class="font-bold text-xl text-gray-800">Reino Unido</h4></div>
+                </button>
+                <button class="glass-card p-6 flex items-center text-left cursor-pointer hover:bg-gray-50 hover:shadow-md transition" onclick="showCountryPage('franca', '🇫🇷 França')">
+                    <div class="text-5xl mr-6 shadow-sm rounded">🇫🇷</div>
+                    <div><h4 class="font-bold text-xl text-gray-800">França</h4></div>
+                </button>
+                <button class="glass-card p-6 flex items-center text-left cursor-pointer hover:bg-gray-50 hover:shadow-md transition" onclick="showCountryPage('espanha', '🇪🇸 Espanha')">
+                    <div class="text-5xl mr-6 shadow-sm rounded">🇪🇸</div>
+                    <div><h4 class="font-bold text-xl text-gray-800">Espanha</h4></div>
+                </button>
+                <button class="glass-card p-6 flex items-center text-left cursor-pointer hover:bg-gray-50 hover:shadow-md transition" onclick="showCountryPage('canada-ingles', '🇨🇦 Canadá (Inglês)')">
+                    <div class="text-5xl mr-6 shadow-sm rounded">🇨🇦</div>
+                    <div><h4 class="font-bold text-xl text-gray-800">Canadá (Inglês)</h4></div>
+                </button>
+                <button class="glass-card p-6 flex items-center text-left cursor-pointer hover:bg-gray-50 hover:shadow-md transition" onclick="showCountryPage('canada-frances', '🇨🇦 Canadá (Francês)')">
+                    <div class="text-5xl mr-6 shadow-sm rounded">🇨🇦</div>
+                    <div><h4 class="font-bold text-xl text-gray-800">Canadá (Francês)</h4></div>
+                </button>
+            </div>
+        </div>
+
+        <div id="page-reino-unido" class="page-section hidden p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="backToDestinos()" class="text-2xl hover:scale-110 transition" aria-label="Voltar">⬅️</button>
+                <h2 class="text-2xl font-bold text-gray-800">🇬🇧 Reino Unido</h2>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📋</span> Informações Gerais</h3>
+                <div class="bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg p-6 text-center">
+                    <p class="text-sm text-blue-700 font-medium">📊 Espaço reservado para incorporação da planilha do Google Sheets</p>
+                    <p class="text-xs text-blue-600 mt-2">Cole aqui o código de embed da planilha quando estiver pronta</p>
+                </div>
+            </div>
+            <div class="glass-card p-6 flex flex-col h-96">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📁</span> Documentos (Google Drive)</h3>
+                <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=11g7vFoZiCB785g3Dd4_DFONKVWeFR2Qu#grid" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-franca" class="page-section hidden p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="backToDestinos()" class="text-2xl hover:scale-110 transition" aria-label="Voltar">⬅️</button>
+                <h2 class="text-2xl font-bold text-gray-800">🇫🇷 França</h2>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📋</span> Informações Gerais</h3>
+                <div class="bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg p-6 text-center">
+                    <p class="text-sm text-blue-700 font-medium">📊 Espaço reservado para incorporação da planilha do Google Sheets</p>
+                    <p class="text-xs text-blue-600 mt-2">Cole aqui o código de embed da planilha quando estiver pronta</p>
+                </div>
+            </div>
+            <div class="glass-card p-6 flex flex-col h-96">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📁</span> Documentos (Google Drive)</h3>
+                <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=17Ip8J4pu4mS47h_QOqyuYb9NFMY9xUHb#grid" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-espanha" class="page-section hidden p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="backToDestinos()" class="text-2xl hover:scale-110 transition" aria-label="Voltar">⬅️</button>
+                <h2 class="text-2xl font-bold text-gray-800">🇪🇸 Espanha</h2>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📋</span> Informações Gerais</h3>
+                <div class="bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg p-6 text-center">
+                    <p class="text-sm text-blue-700 font-medium">📊 Espaço reservado para incorporação da planilha do Google Sheets</p>
+                    <p class="text-xs text-blue-600 mt-2">Cole aqui o código de embed da planilha quando estiver pronta</p>
+                </div>
+            </div>
+            <div class="glass-card p-6 flex flex-col h-96">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📁</span> Documentos (Google Drive)</h3>
+                <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=1OS1FGcxXzq-prjGHV8tX0cIH5SSI-cC4#grid" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-canada-ingles" class="page-section hidden p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="backToDestinos()" class="text-2xl hover:scale-110 transition" aria-label="Voltar">⬅️</button>
+                <h2 class="text-2xl font-bold text-gray-800">🇨🇦 Canadá (Inglês)</h2>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">🏫</span> Colleges de Destino (Inglês)</h3>
+                <div class="bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg p-6 text-center">
+                    <p class="text-sm text-blue-700 font-medium">📌 Liste aqui os colleges de inglês do Canadá</p>
+                    <p class="text-xs text-blue-600 mt-2">Você pode usar tabela, lista ou embed da planilha.</p>
+                </div>
+            </div>
+            <div class="glass-card p-6 flex flex-col h-96">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📁</span> Documentos (Google Drive)</h3>
+                <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=1f_Uu1FfpqREG5s0EiJi8yIBW_UdUVHRg#grid" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-canada-frances" class="page-section hidden p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="backToDestinos()" class="text-2xl hover:scale-110 transition" aria-label="Voltar">⬅️</button>
+                <h2 class="text-2xl font-bold text-gray-800">🇨🇦 Canadá (Francês)</h2>
+            </div>
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">🏫</span> Colleges de Destino (Francês)</h3>
+                <div class="bg-blue-50 border-2 border-dashed border-blue-300 rounded-lg p-6 text-center">
+                    <p class="text-sm text-blue-700 font-medium">📌 Liste aqui os colleges de francês do Canadá</p>
+                    <p class="text-xs text-blue-600 mt-2">Você pode usar tabela, lista ou embed da planilha.</p>
+                </div>
+            </div>
+            <div class="glass-card p-6 flex flex-col h-96">
+                <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📁</span> Documentos (Google Drive)</h3>
+                <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=COLE_ID_PASTA_CANADA_FRANCES_AQUI#grid" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- FIM: AREA EDITAVEL DA PAGINA DESTINOS -->
+    </main>
+
+    <script src="js/shared.js"></script>
+    <script>
+        function showCountryPage(countryId, title) {
+            document.querySelectorAll('.page-section').forEach(section => section.classList.add('hidden'));
+            const countrySection = document.getElementById('page-' + countryId);
+            if (countrySection) countrySection.classList.remove('hidden');
+            document.getElementById('page-title').innerText = title;
+        }
+
+        function backToDestinos() {
+            document.querySelectorAll('.page-section').forEach(section => section.classList.add('hidden'));
+            const destinosSection = document.getElementById('page-destinos');
+            if (destinosSection) destinosSection.classList.remove('hidden');
+            document.getElementById('page-title').innerText = 'Destinos (Colleges)';
+        }
+    </script>
+</body>
+</html>
