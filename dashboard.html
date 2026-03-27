@@ -53,17 +53,17 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                         <!-- BLOCO EDITAVEL: STATUS GLOBAL -->
-                        <div class="glass-card p-6 flex flex-col h-80 md:h-96">
+                        <div class="glass-card p-6 flex flex-col h-auto">
                             <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📊</span> Painel de tarefas</h3>
-                            <div class="flex-1 rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper p-2 flex items-center justify-center">
+                            <div class="rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper p-2 flex items-center justify-center min-h-[240px]">
                                 <iframe class="mx-auto block" width="334" height="164" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSIEnoiXwhrILv-Tp5_EaMraCnOCSM0WDV47tmFeeq90ilmPMTi9bN9-bc9SF0NGg/pubchart?oid=158744950&amp;format=interactive"></iframe>
                             </div>
                         </div>
 
                         <!-- BLOCO EDITAVEL: RADAR DE PRAZOS -->
-                        <div class="glass-card p-6 flex flex-col h-auto md:h-auto">
+                        <div class="glass-card p-6 flex flex-col h-auto">
                             <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">⏳</span> Radar de Prazos (Tarefas em Foco)</h3>
                             <div id="tarefas-container" class="space-y-3">
                                 <div class="text-center text-gray-400 py-8">
@@ -72,20 +72,19 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <!-- BLOCO EDITAVEL: GESTAO DE TAREFAS POR SERVIDOR -->
-                    <div class="glass-card p-6 mb-10">
-                        <h3 class="font-semibold text-gray-800 mb-6 border-b pb-2 flex items-center text-lg"><span class="mr-2">👤</span> Gestão de Tarefas (Por Servidor)</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label for="task-person-select" class="text-sm font-semibold text-gray-700 block mb-2">Gestão de Tarefas</label>
-                                <select id="task-person-select" class="w-full md:w-96 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#075985] focus:border-[#075985] bg-white">
-                                    <option value="">Selecione...</option>
-                                </select>
-                            </div>
-                            <div id="tasks-selected-container" class="bg-gray-50 border rounded-lg p-4 min-h-[120px]">
-                                <p class="text-sm text-gray-400">Selecione um servidor para visualizar as tarefas atribuídas.</p>
+                        <!-- BLOCO EDITAVEL: GESTAO DE TAREFAS POR SERVIDOR -->
+                        <div class="glass-card p-6 h-auto md:col-span-2 xl:col-span-1">
+                            <h3 class="font-semibold text-gray-800 mb-6 border-b pb-2 flex items-center text-lg"><span class="mr-2">👤</span> Gestão de Tarefas (Por Servidor)</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="task-person-select" class="text-sm font-semibold text-gray-700 block mb-2">Gestão de Tarefas</label>
+                                    <select id="task-person-select" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#075985] focus:border-[#075985] bg-white">
+                                        <option value="">Selecione...</option>
+                                    </select>
+                                </div>
+                                <div id="tasks-selected-container" class="bg-gray-50 border rounded-lg p-4 min-h-[120px]">
+                                    <p class="text-sm text-gray-400">Selecione um servidor para visualizar as tarefas atribuídas.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -97,54 +96,54 @@
                         <div class="bg-slate-100 text-slate-700 px-5 py-3 border-b border-slate-200">
                             <h3 class="font-semibold text-base">Linha do tempo</h3>
                         </div>
-                        <div class="p-4 bg-white">
-                            <ol class="relative border-s border-slate-200 space-y-4 ps-3">
+                        <div class="p-3 bg-white">
+                            <ol class="relative border-s border-slate-200 space-y-3 ps-3">
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Publicação do Edital</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Publicação do Edital</p>
                                         <p class="text-xs text-slate-500 mt-1">30/03</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Início das Inscrições</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Início das Inscrições</p>
                                         <p class="text-xs text-slate-500 mt-1">31/30</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Fim das inscrições</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Fim das inscrições</p>
                                         <p class="text-xs text-slate-500 mt-1">XX/04</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Prova de Idiomas</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Prova de Idiomas</p>
                                         <p class="text-xs text-slate-500 mt-1">9 ou 10/05</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Resultado provas</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Resultado provas</p>
                                         <p class="text-xs text-slate-500 mt-1">17/05</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Embarque dos estudantes</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Embarque dos estudantes</p>
                                         <p class="text-xs text-slate-500 mt-1">xx/08</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
-                                    <span class="absolute -start-1.5 mt-1 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
-                                    <div class="bg-slate-50 rounded-md p-2.5 border border-slate-200">
-                                        <p class="text-sm font-medium text-slate-700">Retorno dos estudantes</p>
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Retorno dos estudantes</p>
                                         <p class="text-xs text-slate-500 mt-1">xx/12</p>
                                     </div>
                                 </li>
