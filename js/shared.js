@@ -42,7 +42,7 @@ function getSidebarTemplate() {
             <span class="mr-3 text-lg">📋</span> <span class="font-medium text-sm">Contratos e Termos de Referência</span>
         </a>
         <a href="destinos.html" data-page="destinos" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
-            <span class="mr-3 text-lg">🌍</span> <span class="font-medium text-sm">Destinos (Colleges)</span>
+            <span class="mr-3 text-lg">🌍</span> <span class="font-medium text-sm">Países e Instituições de Ensino</span>
         </a>
         <a href="governanca.html" data-page="governanca" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
             <span class="mr-3 text-lg">🛡️</span> <span class="font-medium text-sm">Informações úteis</span>
