@@ -228,20 +228,23 @@ function renderTarefasCards(data) {
 
         let cssClass = 'normal';
         let icone = '🟢';
+        let statusLabel = status;
 
         if (status.includes('URGENTE')) {
             cssClass = 'urgente';
             icone = '🔴';
+            statusLabel = 'URGENTE';
         } else if (status.includes('ATENÇÃO') || status.includes('ATENCAO')) {
             cssClass = 'atencao';
             icone = '🟠';
+            statusLabel = 'ATENÇÃO';
         }
 
         html += `
             <div class="tarefa-card ${cssClass}">
                 <div class="flex items-center justify-between mb-2">
                     <span class="tarefa-titulo">${icone} ${tarefa}</span>
-                    <span class="tarefa-status">${status}</span>
+                    <span class="tarefa-status">${statusLabel}</span>
                 </div>
                 <div class="tarefa-info">
                     <div class="tarefa-info-item"><span class="tarefa-info-label">Responsável:</span><br>${responsavel || 'Não atribuído'}</div>

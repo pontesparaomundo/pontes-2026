@@ -14,15 +14,10 @@
     <div id="sidebar-container" class="flex"></div>
 
     <main class="flex-1 flex flex-col h-full overflow-y-auto no-scrollbar relative">
-        <header class="bg-white shadow-sm px-6 py-4 flex justify-between items-center z-10 sticky top-0">
-            <div class="flex items-center">
-                <button onclick="toggleMenu()" class="mr-4 md:hidden text-gray-600 hover:text-[#075985]" aria-label="Abrir menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-                <div>
-                    <h2 id="page-title" class="text-xl md:text-2xl font-semibold text-gray-800 tracking-tight">Painel Executivo</h2>
-                </div>
-            </div>
+        <header class="bg-white shadow-sm px-6 py-4 flex justify-end items-center z-10 sticky top-0 relative">
+            <button onclick="toggleMenu()" class="absolute left-6 md:hidden text-gray-600 hover:text-[#075985]" aria-label="Abrir menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
             <div class="text-right">
                 <p class="text-sm font-medium text-gray-600" id="current-date">Carregando...</p>
             </div>
@@ -53,15 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        <!-- BLOCO EDITAVEL: STATUS GLOBAL -->
-                        <div class="glass-card p-6 flex flex-col h-auto">
-                            <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📊</span> Painel de tarefas</h3>
-                            <div class="rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] iframe-wrapper p-2 flex items-center justify-center min-h-[240px]">
-                                <iframe class="mx-auto block" width="334" height="164" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSIEnoiXwhrILv-Tp5_EaMraCnOCSM0WDV47tmFeeq90ilmPMTi9bN9-bc9SF0NGg/pubchart?oid=158744950&amp;format=interactive"></iframe>
-                            </div>
-                        </div>
-
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- BLOCO EDITAVEL: RADAR DE PRAZOS -->
                         <div class="glass-card p-6 flex flex-col h-auto">
                             <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">⏳</span> Radar de Prazos (Tarefas em Foco)</h3>
@@ -73,7 +60,7 @@
                         </div>
 
                         <!-- BLOCO EDITAVEL: GESTAO DE TAREFAS POR SERVIDOR -->
-                        <div class="glass-card p-6 h-auto md:col-span-2 xl:col-span-1">
+                        <div class="glass-card p-6 h-auto">
                             <h3 class="font-semibold text-gray-800 mb-6 border-b pb-2 flex items-center text-lg"><span class="mr-2">👤</span> Gestão de Tarefas (Por Servidor)</h3>
                             <div class="space-y-4">
                                 <div>
@@ -86,6 +73,14 @@
                                     <p class="text-sm text-gray-400">Selecione um servidor para visualizar as tarefas atribuídas.</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- BLOCO EDITAVEL: PAINEL DE TAREFAS -->
+                    <div class="glass-card p-6 mb-10">
+                        <h3 class="font-semibold text-gray-800 mb-4 border-b pb-2 flex items-center"><span class="mr-2">📊</span> Painel de tarefas</h3>
+                        <div id="painel-tarefas-wrap" class="w-full rounded-lg overflow-hidden border border-gray-200 bg-[#F8FAFC] p-0 min-h-[320px]">
+                            <iframe id="painel-tarefas-iframe" class="block border-0" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSIEnoiXwhrILv-Tp5_EaMraCnOCSM0WDV47tmFeeq90ilmPMTi9bN9-bc9SF0NGg/pubchart?oid=158744950&amp;format=interactive"></iframe>
                         </div>
                     </div>
                 </div>
@@ -101,36 +96,85 @@
                                 <li class="ms-3">
                                     <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
                                     <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
-                                        <p class="text-xs font-medium text-slate-700">Publicação do Edital</p>
-                                        <p class="text-xs text-slate-500 mt-1">30/03</p>
+                                        <p class="text-xs font-medium text-slate-700">Divulgação do Edital</p>
+                                        <p class="text-xs text-slate-500 mt-1">30/03/26</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
                                     <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
                                     <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
-                                        <p class="text-xs font-medium text-slate-700">Início das Inscrições</p>
-                                        <p class="text-xs text-slate-500 mt-1">31/30</p>
+                                        <p class="text-xs font-medium text-slate-700">Inscrições</p>
+                                        <p class="text-xs text-slate-500 mt-1">31/03/26 a 13/04/26</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
                                     <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
                                     <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
-                                        <p class="text-xs font-medium text-slate-700">Fim das inscrições</p>
-                                        <p class="text-xs text-slate-500 mt-1">XX/04</p>
+                                        <p class="text-xs font-medium text-slate-700">Homologação</p>
+                                        <p class="text-xs text-slate-500 mt-1">17/04/26</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
                                     <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
                                     <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
-                                        <p class="text-xs font-medium text-slate-700">Prova de Idiomas</p>
-                                        <p class="text-xs text-slate-500 mt-1">9 ou 10/05</p>
+                                        <p class="text-xs font-medium text-slate-700">Recurso Homologação</p>
+                                        <p class="text-xs text-slate-500 mt-1">18/04/26 a 24/04/26</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
                                     <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
                                     <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
-                                        <p class="text-xs font-medium text-slate-700">Resultado provas</p>
-                                        <p class="text-xs text-slate-500 mt-1">17/05</p>
+                                        <p class="text-xs font-medium text-slate-700">Resultado do recurso</p>
+                                        <p class="text-xs text-slate-500 mt-1">30/04/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Convocação dos selecionados</p>
+                                        <p class="text-xs text-slate-500 mt-1">06/05/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Prova</p>
+                                        <p class="text-xs text-slate-500 mt-1">09/05/26 e/ou 10/05/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Resultado preliminar das provas</p>
+                                        <p class="text-xs text-slate-500 mt-1">19/05/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Recurso contra resultado da prova</p>
+                                        <p class="text-xs text-slate-500 mt-1">20/05/26 a 22/05/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Resultado do recurso contra prova</p>
+                                        <p class="text-xs text-slate-500 mt-1">28/05/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Resultado parcial e convocação para documentação</p>
+                                        <p class="text-xs text-slate-500 mt-1">01/06/26</p>
+                                    </div>
+                                </li>
+                                <li class="ms-3">
+                                    <span class="absolute -start-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                    <div class="bg-slate-50 rounded-md p-2 border border-slate-200">
+                                        <p class="text-xs font-medium text-slate-700">Entrega da documentação</p>
+                                        <p class="text-xs text-slate-500 mt-1">02/06/26 a 09/06/26</p>
                                     </div>
                                 </li>
                                 <li class="ms-3">
@@ -158,5 +202,26 @@
 
     <script src="js/shared.js"></script>
     <script src="js/dashboard-data.js"></script>
+    <script>
+        function ajustarGraficoPainelTarefas() {
+            const wrap = document.getElementById('painel-tarefas-wrap');
+            const iframe = document.getElementById('painel-tarefas-iframe');
+            if (!wrap || !iframe) return;
+
+            const baseWidth = 980;
+            const baseHeight = 520;
+            const larguraAtual = wrap.clientWidth;
+            const escala = Math.min(1, larguraAtual / baseWidth);
+
+            iframe.style.width = `${baseWidth}px`;
+            iframe.style.height = `${baseHeight}px`;
+            iframe.style.transformOrigin = 'top left';
+            iframe.style.transform = `scale(${escala})`;
+            wrap.style.height = `${Math.ceil(baseHeight * escala)}px`;
+        }
+
+        window.addEventListener('resize', ajustarGraficoPainelTarefas);
+        window.addEventListener('load', ajustarGraficoPainelTarefas);
+    </script>
 </body>
 </html>

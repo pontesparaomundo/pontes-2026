@@ -165,8 +165,8 @@ details[open] summary ~ * {
 
 .aviso-postit {
     position: relative;
-    background: linear-gradient(145deg, #fff6b7, #ffe88c);
-    border: 1px solid #f3d363;
+    background: linear-gradient(145deg, #fff8cc, #ffeeb3);
+    border: 1px solid #e9d9a8;
     border-radius: 10px;
     padding: 14px 12px 12px;
     min-height: 130px;
@@ -175,11 +175,25 @@ details[open] summary ~ * {
 }
 
 .aviso-postit:nth-child(2n) {
+    background: linear-gradient(145deg, #ffe9dd, #ffd9c7);
+    border-color: #f0c8b0;
     transform: rotate(1deg);
 }
 
 .aviso-postit:nth-child(3n) {
+    background: linear-gradient(145deg, #e8f7e8, #d7f0d7);
+    border-color: #bfe0bf;
     transform: rotate(-0.5deg);
+}
+
+.aviso-postit:nth-child(4n) {
+    background: linear-gradient(145deg, #e8f2ff, #d9e8ff);
+    border-color: #bed2ef;
+}
+
+.aviso-postit:nth-child(5n) {
+    background: linear-gradient(145deg, #f3ecff, #e7dcff);
+    border-color: #d5c6f2;
 }
 
 .aviso-postit-loading {
@@ -236,33 +250,33 @@ details[open] summary ~ * {
 }
 
 .tarefa-card.urgente {
-    background: #FEE2E2;
-    border-left-color: #EF4444;
+    background: #fde7ef;
+    border-left-color: #db2777;
 }
 
 .tarefa-card.urgente .tarefa-status {
-    color: #991B1B;
-    background: #FCA5A5;
+    color: #831843;
+    background: #f9a8d4;
 }
 
 .tarefa-card.atencao {
-    background: #FEF3C7;
-    border-left-color: #F59E0B;
+    background: #fff4db;
+    border-left-color: #d97706;
 }
 
 .tarefa-card.atencao .tarefa-status {
-    color: #92400E;
-    background: #FCD34D;
+    color: #7c2d12;
+    background: #fbd38d;
 }
 
 .tarefa-card.normal {
-    background: #E0F2FE;
-    border-left-color: #0284C7;
+    background: #e6f6f2;
+    border-left-color: #0f766e;
 }
 
 .tarefa-card.normal .tarefa-status {
-    color: #003F87;
-    background: #7DD3FC;
+    color: #134e4a;
+    background: #99f6e4;
 }
 
 .tarefa-titulo {
