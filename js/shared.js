@@ -16,6 +16,54 @@ function initializeDate() {
     dateElement.textContent = new Date().toLocaleDateString('pt-BR', options).replace(/^\w/, c => c.toUpperCase());
 }
 
+function getSidebarTemplate() {
+    return `
+<aside id="sidebar" class="fixed md:relative inset-y-0 left-0 w-64 bg-[#075985] text-white flex flex-col shadow-xl z-30 h-screen md:h-auto transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:transition-none">
+    <div class="p-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-bold tracking-wider">PONTES 2026</h1>
+            <p class="text-xs text-[#E0F2FE] mt-1 opacity-80">Gestão de Intercâmbio</p>
+        </div>
+        <button onclick="toggleMenu()" class="md:hidden text-[#E0F2FE] hover:text-white" aria-label="Fechar menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-2 overflow-y-auto no-scrollbar" id="nav-menu">
+        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-2 mb-2 px-2">Navegação Geral</p>
+
+        <a href="dashboard.html" data-page="dashboard" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">🏠</span> <span class="font-medium text-sm">Dashboard</span>
+        </a>
+        <a href="selecao.html" data-page="selecao" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">🎯</span> <span class="font-medium text-sm">Seleção e Edital</span>
+        </a>
+        <a href="contratos.html" data-page="contratos" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">📋</span> <span class="font-medium text-sm">Contratos e Termos de Referência</span>
+        </a>
+        <a href="destinos.html" data-page="destinos" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">🌍</span> <span class="font-medium text-sm">Destinos (Colleges)</span>
+        </a>
+        <a href="governanca.html" data-page="governanca" class="nav-item flex items-center px-2 py-2.5 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">🛡️</span> <span class="font-medium text-sm">Informações úteis</span>
+        </a>
+
+        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-8 mb-2 px-2">Acesso Rápido</p>
+        <a href="https://docs.google.com/spreadsheets/d/1Jb5yegqoojAUeSrZjireF0WiPsFfOimP/edit?gid=48735881#gid=48735881" target="_blank" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">📊</span> <span class="font-medium text-sm">Planilha Mestre</span>
+        </a>
+        <a href="#" target="_blank" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">📁</span> <span class="font-medium text-sm">Drive (Modelos)</span>
+        </a>
+    </nav>
+
+    <div class="p-4 bg-[#064e73] text-xs text-center border-t border-[#0c6b9e]">
+        Acesso: <strong>@edu.se.df.gov.br</strong>
+    </div>
+</aside>
+`;
+}
+
 function markActiveNavigation() {
     const activePage = document.body.dataset.activePage;
     if (!activePage) return;
@@ -46,21 +94,13 @@ function wireMobileNavigation() {
     });
 }
 
-async function loadSidebar() {
+function loadSidebar() {
     const sidebarContainer = document.getElementById('sidebar-container');
     if (!sidebarContainer) return;
 
-    try {
-        const response = await fetch('sidebar.html');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        sidebarContainer.innerHTML = await response.text();
-        markActiveNavigation();
-        wireMobileNavigation();
-    } catch (error) {
-        console.error('Erro ao carregar sidebar:', error);
-        sidebarContainer.innerHTML = '<div class="p-4 text-sm text-gray-500">Menu indisponível.</div>';
-    }
+    sidebarContainer.innerHTML = getSidebarTemplate();
+    markActiveNavigation();
+    wireMobileNavigation();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
