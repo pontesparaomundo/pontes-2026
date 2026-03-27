@@ -49,7 +49,7 @@ function getSidebarTemplate() {
         </a>
 
         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-8 mb-2 px-2">Acesso Rápido</p>
-        <a href="https://docs.google.com/spreadsheets/d/1Jb5yegqoojAUeSrZjireF0WiPsFfOimP/edit?gid=48735881#gid=48735881" target="_blank" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
+        <a href="planilha.html" data-page="planilha" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
             <span class="mr-3 text-lg">📊</span> <span class="font-medium text-sm">Planilha Mestre</span>
         </a>
         <a href="#" target="_blank" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
