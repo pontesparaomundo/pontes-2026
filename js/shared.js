@@ -52,6 +52,9 @@ function getSidebarTemplate() {
         <a href="planilha.html" data-page="planilha" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
             <span class="mr-3 text-lg">📊</span> <span class="font-medium text-sm">Planilha Mestre</span>
         </a>
+        <a href="ferramentas-ia.html" data-page="ferramentas-ia" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
+            <span class="mr-3 text-lg">🤖</span> <span class="font-medium text-sm">Ferramentas IA</span>
+        </a>
         <a href="#" target="_blank" class="nav-item flex items-center px-2 py-2 rounded-lg text-gray-200">
             <span class="mr-3 text-lg">📁</span> <span class="font-medium text-sm">Drive (Modelos)</span>
         </a>
