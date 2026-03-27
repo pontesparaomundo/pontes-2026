@@ -157,6 +157,70 @@ details[open] summary ~ * {
     line-height: 1.5;
 }
 
+.avisos-postits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.aviso-postit {
+    position: relative;
+    background: linear-gradient(145deg, #fff6b7, #ffe88c);
+    border: 1px solid #f3d363;
+    border-radius: 10px;
+    padding: 14px 12px 12px;
+    min-height: 130px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    transform: rotate(-1deg);
+}
+
+.aviso-postit:nth-child(2n) {
+    transform: rotate(1deg);
+}
+
+.aviso-postit:nth-child(3n) {
+    transform: rotate(-0.5deg);
+}
+
+.aviso-postit-loading {
+    background: #f8fafc;
+    border-style: dashed;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aviso-destinatario {
+    font-size: 11px;
+    font-weight: 700;
+    color: #7c2d12;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding-right: 20px;
+}
+
+.aviso-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(124, 45, 18, 0.15);
+    color: #7c2d12;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.aviso-close:hover {
+    background: rgba(124, 45, 18, 0.25);
+}
+
 .tarefa-card {
     padding: 16px;
     border-radius: 8px;

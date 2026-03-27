@@ -9,6 +9,9 @@ const personColumns = {
     'Álex': { start: 14, end: 15 }
 };
 
+const taskPeople = ['David', 'Thaísa', 'Álex', 'Helena', 'Gabriel', 'Hedy', 'Magno'];
+const taskDataByPerson = {};
+
 function normalizeName(name) {
     return name.toLowerCase().replace(/[áéíóú]/g, m => ({ á: 'a', é: 'e', í: 'i', ó: 'o', ú: 'u' }[m]));
 }
@@ -35,8 +38,8 @@ async function fetchAvisosFromSheets() {
 }
 
 function renderAvisosTable(data) {
-    const tbody = document.getElementById('avisos-tbody');
-    if (!tbody || !data || data.length < 2) {
+    const container = document.getElementById('avisos-postits');
+    if (!container || !data || data.length < 2) {
         renderAvisosEmpty();
         return;
     }
@@ -51,34 +54,22 @@ function renderAvisosTable(data) {
 
         if (destinatario && mensagem) {
             html += `
-                <tr>
-                    <td><span class="destinatario-badge">${destinatario}</span></td>
-                    <td><div class="aviso-message">${mensagem}</div></td>
-                </tr>
+                <article class="aviso-postit">
+                    <button type="button" class="aviso-close" aria-label="Fechar aviso" onclick="this.closest('.aviso-postit').remove()">×</button>
+                    <p class="aviso-destinatario">${destinatario}</p>
+                    <p class="aviso-message">${mensagem}</p>
+                </article>
             `;
         }
     }
 
-    tbody.innerHTML = html || `
-        <tr>
-            <td colspan="2" class="text-center text-gray-400 py-8">
-                <span class="text-sm">📭 Nenhum aviso no momento</span>
-            </td>
-        </tr>
-    `;
+    container.innerHTML = html || '<div class="aviso-postit aviso-postit-loading"><p class="text-sm text-gray-500">📭 Nenhum aviso no momento</p></div>';
 }
 
 function renderAvisosEmpty() {
-    const tbody = document.getElementById('avisos-tbody');
-    if (!tbody) return;
-
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="2" class="text-center text-gray-400 py-8">
-                <span class="text-sm">📭 Nenhum aviso no momento</span>
-            </td>
-        </tr>
-    `;
+    const container = document.getElementById('avisos-postits');
+    if (!container) return;
+    container.innerHTML = '<div class="aviso-postit aviso-postit-loading"><p class="text-sm text-gray-500">📭 Nenhum aviso no momento</p></div>';
 }
 
 async function fetchTasksFromSheets() {
@@ -109,13 +100,11 @@ async function fetchTasksFromSheets() {
 }
 
 function renderTaskCardsFromData(sheetData) {
-    Object.keys(personColumns).forEach(person => {
+    taskPeople.forEach(person => {
         const cols = personColumns[person];
-        const cleanName = normalizeName(person);
-        const container = document.getElementById(`tasks-${cleanName}`);
-        if (!container) return;
+        if (!cols) return;
 
-        let html = '';
+        const tasks = [];
 
         for (let i = 1; i < sheetData.length; i++) {
             const row = sheetData[i];
@@ -125,27 +114,76 @@ function renderTaskCardsFromData(sheetData) {
             const description = (row[cols.end] || '').toString().trim();
 
             if (title) {
-                html += `
-                    <div class="task-card">
-                        <div class="task-card-title">${title}</div>
-                        ${description ? `<div class="task-card-description">${description}</div>` : ''}
-                    </div>
-                `;
+                tasks.push({ title, description });
             }
         }
 
-        container.innerHTML = html || '<p class="text-xs text-gray-400 text-center py-2">Nenhuma tarefa</p>';
+        taskDataByPerson[person] = tasks;
     });
+
+    initializeTaskSelector();
 }
 
 function renderTaskCardsEmpty() {
-    Object.keys(personColumns).forEach(person => {
-        const cleanName = normalizeName(person);
-        const container = document.getElementById(`tasks-${cleanName}`);
-        if (!container) return;
-
-        container.innerHTML = '<p class="text-xs text-gray-400 text-center py-2">Nenhuma tarefa carregada</p>';
+    taskPeople.forEach(person => {
+        taskDataByPerson[person] = [];
     });
+    initializeTaskSelector();
+}
+
+function initializeTaskSelector() {
+    const select = document.getElementById('task-person-select');
+    const container = document.getElementById('tasks-selected-container');
+    if (!select || !container) return;
+
+    const currentValue = select.value;
+
+    select.innerHTML = '<option value="">Selecione...</option>';
+    taskPeople.forEach(person => {
+        const count = (taskDataByPerson[person] || []).length;
+        const option = document.createElement('option');
+        option.value = person;
+        option.textContent = `${person} (${count})`;
+        select.appendChild(option);
+    });
+
+    if (currentValue && taskPeople.includes(currentValue)) {
+        select.value = currentValue;
+    }
+
+    if (!select.dataset.bound) {
+        select.addEventListener('change', () => {
+            renderSelectedPersonTasks(select.value);
+        });
+        select.dataset.bound = 'true';
+    }
+
+    renderSelectedPersonTasks(select.value);
+}
+
+function renderSelectedPersonTasks(person) {
+    const container = document.getElementById('tasks-selected-container');
+    if (!container) return;
+
+    if (!person) {
+        container.innerHTML = '<p class="text-sm text-gray-400">Selecione um servidor para visualizar as tarefas atribuídas.</p>';
+        return;
+    }
+
+    const tasks = taskDataByPerson[person] || [];
+    if (!tasks.length) {
+        container.innerHTML = '<p class="text-sm text-gray-400">Nenhuma tarefa atribuída para este servidor.</p>';
+        return;
+    }
+
+    const html = tasks.map(task => `
+        <div class="task-card">
+            <div class="task-card-title">${task.title}</div>
+            ${task.description ? `<div class="task-card-description">${task.description}</div>` : ''}
+        </div>
+    `).join('');
+
+    container.innerHTML = `<div class="tasks-container">${html}</div>`;
 }
 
 async function fetchTarefasFromSheets() {
